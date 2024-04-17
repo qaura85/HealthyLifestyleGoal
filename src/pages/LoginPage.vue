@@ -89,7 +89,7 @@ import { useQuasar } from "quasar";
 import { defineComponent, ref } from "vue";
 import { useStore } from "vuex";
 import { useRouter, useRoute } from "vue-router";
-import { colUser, rowsUser } from "src/hooks/devUser.js";
+import { colProfile, rowsProfile } from "src/hooks/devProfile.js";
 
 export default {
   setup() {
@@ -98,8 +98,8 @@ export default {
     const router = useRouter();
     const error = ref(false);
 
-    const columns = [...colUser];
-    const rows = [...rowsUser];
+    const columns = [...colProfile];
+    const rows = [...rowsProfile];
 
     const confirm = ref(false);
     const login = ref({

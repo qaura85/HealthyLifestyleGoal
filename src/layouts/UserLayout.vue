@@ -1,10 +1,10 @@
 <template>
-  <q-layout view="hHh Lpr fFf"> <!-- Be sure to play with the Layout demo on docs -->
+  <q-layout view="hHh Lpr fFf">
+    <!-- Be sure to play with the Layout demo on docs -->
 
     <!-- (Optional) The Header -->
     <q-header elevated class="menu bg-secondary">
       <q-toolbar>
-
         <!-- BACK BUTTON -->
         <!-- <q-btn
           icon="keyboard_return"
@@ -14,10 +14,9 @@
           @click="$router.back()"
         /> -->
 
-
         <q-avatar square class="logo">
-              <img src="~assets/HLG_green.png" />
-            </q-avatar>
+          <img src="~assets/HLG_green.png" />
+        </q-avatar>
         <!-- <q-btn
           flat
           round
@@ -26,7 +25,7 @@
           @click="toggleLeftDrawer"
         /> -->
         <q-toolbar-title class="menu bg-secondary">
-          WELCOME
+          Healthy Lifestyle Goals
         </q-toolbar-title>
         <q-btn flat round dense icon="home" @click="mainpage()">
           <q-tooltip> Home </q-tooltip>
@@ -93,17 +92,16 @@
       bordered
       class="bg-grey-2"
     > -->
-      <!-- QScrollArea is optional -->
-      <!-- <q-scroll-area class="fit q-pa-sm"> -->
-        <!-- Content here -->
-      <!-- </q-scroll-area>
+    <!-- QScrollArea is optional -->
+    <!-- <q-scroll-area class="fit q-pa-sm"> -->
+    <!-- Content here -->
+    <!-- </q-scroll-area>
     </q-drawer> -->
 
     <q-page-container>
       <!-- This is where pages get injected -->
       <router-view />
     </q-page-container>
-
   </q-layout>
 </template>
 
@@ -116,35 +114,35 @@ import { useRouter, useRoute } from "vue-router";
 export default {
   // name: 'LayoutName',
 
-  setup () {
+  setup() {
     const $q = useQuasar();
     const store = useStore();
     const router = useRouter();
 
-    const leftDrawerOpen = ref(false)
+    const leftDrawerOpen = ref(false);
 
     return {
       leftDrawerOpen,
-      toggleLeftDrawer () {
-        leftDrawerOpen.value = !leftDrawerOpen.value
+      toggleLeftDrawer() {
+        leftDrawerOpen.value = !leftDrawerOpen.value;
       },
       profile() {
         router.push({ name: "profile" });
       },
-      mainpage(){
-        router.push({ name: "mainpage"})
+      mainpage() {
+        router.push({ name: "mainpage" });
       },
-      logout(){
-        router.push({ name: "logout"})
+      logout() {
+        router.push({ name: "logout" });
       },
-    }
-  }
-}
+    };
+  },
+};
 </script>
 
 <style>
-  .menu {
-    color: white;
-    background-color: #3eb489;
-  }
+.menu {
+  color: white;
+  background-color: #3eb489;
+}
 </style>

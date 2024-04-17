@@ -3,22 +3,43 @@
     <!-- <img src="~assets/HealthyFood.jpg" class="background" alt="login-wave" /> -->
     <img />
     <div>
-      <q-card class="bg-transparent" flat>
-        <!-- Title -->
-
-        <q-card-section align="center" class="title">
-          <h2 class="text-secondary text-h2 q-my-none text-weight-bolder">
-            <span>Healthy Lifestyle Goals</span>
-          </h2>
-        </q-card-section>
+      <q-card class="bg-transparent" flat align="center">
         <q-separator />
         <div class="row q-pa-md">
+          <div class="col-12 col-md-12 text-transparent">_</div>
+          <div class="col-12 col-md-12">
+            <q-carousel
+              animated
+              v-model="slide"
+              navigation
+              infinite
+              :autoplay="autoplay"
+              arrows
+              align="center"
+              control-color="black"
+              height="550px"
+              transition-prev="slide-right"
+              transition-next="slide-left"
+              @mouseenter="autoplay = false"
+              @mouseleave="autoplay = true"
+              v-bind:style="
+                $q.screen.lt.sm ? { width: '100%' } : { width: '90%' }
+              "
+            >
+              <q-carousel-slide :name="1" img-src="~assets/news1.png" />
+              <q-carousel-slide :name="2" img-src="~assets/news2.png" />
+              <q-carousel-slide :name="3" img-src="~assets/news3.png" />
+              <!-- <q-carousel-slide :name="4" img-src="~assets/news.png" /> -->
+            </q-carousel>
+          </div>
+
+          <div class="col-12 col-md-12 text-transparent">_</div>
           <div class="col-12 col-md-1 text-transparent">_</div>
 
           <!-- Today's Goals -->
 
-          <div class="col-12 col-md-5">
-            <q-card>
+          <div class="col-12 col-md-10">
+            <q-card align="left">
               <q-card-section class="bgmint text-weight-bolder text-white">
                 <q-avatar square>
                   <img src="~assets/target.png" />
@@ -61,105 +82,46 @@
 
           <div class="col-12 col-md-1 text-transparent">_</div>
 
-          <!-- News -->
-
-          <div class="col-12 col-md-4">
-            <q-card>
-              <q-card-section class="bgmint text-weight-bolder text-white">
-                <q-avatar square>
-                  <img src="~assets/news.png" />
-                </q-avatar>
-                <span class="text-h5">News</span>
-              </q-card-section>
-              <q-separator class="bg-black" />
-              <q-card-section vertical class="goal">
-                <div class="row">
-                  <div class="col-12 q-pa-md">
-                    <q-avatar square>
-                      <img src="~assets/news.png" />
-                    </q-avatar>
-                    News 1
-                  </div>
-                  <div class="col-12 q-pa-md">
-                    <q-avatar square>
-                      <img src="~assets/news.png" />
-                    </q-avatar>
-                    News 2
-                  </div>
-                  <div class="col-12 q-pa-md">
-                    <q-avatar square>
-                      <img src="~assets/news.png" />
-                    </q-avatar>
-                    News 3
-                  </div>
-                </div>
-              </q-card-section>
-            </q-card>
-          </div>
-
-          <div class="col-12 col-md-1 text-transparent">_</div>
-
           <div class="col-12 col-md-12 text-transparent">_</div>
 
           <div class="col-12 col-md-1 text-transparent">_</div>
 
           <!-- Calories Calculator -->
 
-          <div class="col-12 col-md-4">
-            <q-card>
-              <q-card-section class="bgmint text-weight-bolder text-white">
-                <q-avatar square>
-                  <img src="~assets/calculator.png" />
-                </q-avatar>
-                <span class="text-h5">Calories Calculator</span>
-              </q-card-section>
-              <q-separator class="bg-black" />
-              <q-card-section class="goal">
-                <q-form @reset="onReset">
-                  <div class="q-pa-md row" style="max-width: 400">
-                    <span>Protein:</span>
-                    <div class="q-gutter-md">
-                      <q-input v-model="calc.protein" type="number" />
-                    </div>
-                  </div>
-                  <div class="q-pa-md row" style="max-width: 400">
-                    <span>Carbohydrate: </span>
-                    <div class="q-gutter-md">
-                      <q-input v-model="calc.carbo" type="number" />
-                    </div>
-                  </div>
-                  <div class="q-pa-md row" style="max-width: 400">
-                    <span>Fat: </span>
-                    <div class="q-gutter-md">
-                      <q-input v-model="calc.fat" type="number" />
-                    </div>
-                  </div>
-                  <q-card-actions align="right">
-                    <q-btn
-                      label="Calculate"
-                      type="submit"
-                      class="bg-secondary text-white"
-                      @click="calculate"
-                    />
-
-                    <q-btn
-                      label="Reset"
-                      type="reset"
-                      text-color="red"
-                      class="q-ml-sm"
-                      flat
-                    />
-                  </q-card-actions>
-                </q-form>
-              </q-card-section>
-            </q-card>
+          <div class="col-12 col-md-6">
+            <q-table
+              :rows="rowsCal"
+              :columns="colCal"
+              row-key="name"
+              flat
+              bordered
+              title="Food Calories"
+              :filter="filter"
+            >
+              <template v-slot:top-right>
+                <q-input
+                  rounded
+                  outlined
+                  dense
+                  color="grey"
+                  bg-color="white"
+                  debounce="300"
+                  v-model="filter"
+                  placeholder="Search"
+                >
+                  <template v-slot:append>
+                    <q-icon name="search" />
+                  </template>
+                </q-input>
+              </template>
+            </q-table>
           </div>
           <div class="col-12 col-md-1 text-transparent">_</div>
 
           <!-- Health Record -->
 
-          <div class="col-12 col-md-5">
-            <q-card>
+          <div class="col-12 col-md-3">
+            <q-card align="left">
               <q-card-section class="bgmint text-weight-bolder text-white">
                 <q-avatar square>
                   <img src="~assets/health-report.png" />
@@ -237,6 +199,8 @@ import { defineComponent, ref } from "vue";
 import { useQuasar } from "quasar";
 import { useStore } from "vuex";
 import { useRouter, useRoute } from "vue-router";
+import { colProfile, rowsProfile } from "src/hooks/devProfile.js";
+import { colCalories, rowsCalories } from "src/hooks/devCalories.js";
 
 export default {
   setup() {
@@ -251,6 +215,13 @@ export default {
     const calculator = ref(null);
     const total = ref(null);
     const submitGoal = ref(false);
+    const filter = ref("");
+
+    const colP = [...colProfile];
+    const rowsP = [...rowsProfile];
+
+    const colCal = [...colCalories];
+    const rowsCal = [...rowsCalories];
 
     const calc = ref({
       fat: 0,
@@ -275,6 +246,14 @@ export default {
       calc,
       calculator,
       submitGoal,
+      colP,
+      rowsP,
+      colCal,
+      rowsCal,
+      filter,
+
+      slide: ref(1),
+      autoplay: ref(true),
 
       onReset() {
         calc.value = {};
@@ -313,5 +292,31 @@ export default {
 
 .goal {
   background-color: #6ee0b6;
+}
+.q-table__top,
+.q-table__bottom,
+thead tr:first-child th {
+  background-color: #0a7950;
+  color: white;
+}
+thead tr th {
+  position: sticky;
+  z-index: 1;
+}
+thead tr:first-child th {
+  top: 0;
+}
+
+.q-table--loading thead tr:last-child th {
+  top: 48px;
+}
+
+tbody {
+  scroll-margin-top: 48px;
+  background-color: #6ee0b6;
+}
+
+.my-sticky-header-table {
+  height: 395px;
 }
 </style>
