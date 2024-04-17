@@ -26,9 +26,9 @@
                 $q.screen.lt.sm ? { width: '100%' } : { width: '90%' }
               "
             >
-              <q-carousel-slide :name="1" img-src="~assets/news1.png" />
+              <q-carousel-slide :name="1" img-src="~assets/news3.png" />
               <q-carousel-slide :name="2" img-src="~assets/news2.png" />
-              <q-carousel-slide :name="3" img-src="~assets/news3.png" />
+              <q-carousel-slide :name="3" img-src="~assets/news1.png" />
               <!-- <q-carousel-slide :name="4" img-src="~assets/news.png" /> -->
             </q-carousel>
           </div>
